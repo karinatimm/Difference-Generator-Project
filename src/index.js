@@ -1,21 +1,26 @@
-import { Command } from 'commander';
+import fs from 'fs';
+import path from 'path';
 
-const program = new Command();
-
-program
-  .description('Compares two configuration files and shows a difference.')
-  .option('-V, --version', 'output the version number')
-  .option('-h, --help', 'output usage information')
-  .option('-f, --format <type>', 'output format')
-  .parse(process.argv);
-
-// чтобы получить наши options у программы(program) вызываем program.opts()
-// if help property is true =>
-// display the help information using program.helpInformation()
-const displayHelp = () => {
+export const displayHelp = (program) => {
   if (program.opts().help) {
     console.log(program.helpInformation());
   }
 };
 
-export default displayHelp;
+// convert filepath into an absolute path based on the current working directory:
+export const getAbsolutePathToFile = (filepath) => {
+  const pathToFile = path.resolve(process.cwd(), filepath);
+  return pathToFile;
+};
+// read the content of the file at the end of this absolute path:
+export const readTheContentOfJSONFile = (filepath) => {
+  const absolutePathToFile = getAbsolutePathToFile(filepath);
+  const content = fs.readFileSync(absolutePathToFile);
+  return content;
+};
+// convert JSON-formatted string into JS object:
+export const parseJSONFileIntoJSObject = (filepath) => {
+  const contentOfJSONFile = readTheContentOfJSONFile(filepath);
+  const parsedFile = JSON.parse(contentOfJSONFile);
+  return parsedFile;
+};
