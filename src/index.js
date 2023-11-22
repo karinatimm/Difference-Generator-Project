@@ -19,7 +19,12 @@ export const parseJSONFileIntoJSObject = (filepath) => {
   return parsedFile;
 };
 
-const generateJSONDiff = (parsedFile1, parsedFile2, replacer, spacesCount) => {
+export const generateJSONDiff = (
+  parsedFile1,
+  parsedFile2,
+  replacer,
+  spacesCount,
+) => {
   const keys1 = Object.keys(parsedFile1);
   const keys2 = Object.keys(parsedFile2);
   const unitKeys = [...new Set([...keys1, ...keys2])].sort();
