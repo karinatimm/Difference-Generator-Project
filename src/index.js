@@ -1,12 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 
-export const displayHelp = (program) => {
-  if (program.opts().help) {
-    console.log(program.helpInformation());
-  }
-};
-
 // convert filepath into an absolute path based on the current working directory:
 export const getAbsolutePathToFile = (filepath) => {
   const pathToFile = path.resolve(process.cwd(), filepath);
@@ -25,6 +19,32 @@ export const parseJSONFileIntoJSObject = (filepath) => {
   return parsedFile;
 };
 
+const generateJSONDiff = (parsedFile1, parsedFile2, replacer, spacesCount) => {
+  const keys1 = Object.keys(parsedFile1);
+  const keys2 = Object.keys(parsedFile2);
+  const unitKeys = [...new Set([...keys1, ...keys2])].sort();
+
+  const space = replacer.repeat(spacesCount);
+  const spaceForEqualCase = replacer.repeat(spacesCount * 4);
+
+  return unitKeys.reduce((acc, key) => {
+    const value1 = parsedFile1[key];
+    const value2 = parsedFile2[key];
+
+    if (value1 === value2) {
+      acc.push(`${spaceForEqualCase}${key}: ${value1}`);
+    } else if (value1 !== undefined && value2 === undefined) {
+      acc.push(`${space} - ${key}: ${value1}`);
+    } else if (value1 === undefined && value2 !== undefined) {
+      acc.push(`${space} + ${key}: ${value2}`);
+    } else {
+      acc.push(`${space} - ${key}: ${value1}`);
+      acc.push(`${space} + ${key}: ${value2}`);
+    }
+    return acc;
+  }, []);
+};
+
 export const compareTwoJSONFiles = (
   filepath1,
   filepath2,
@@ -34,32 +54,11 @@ export const compareTwoJSONFiles = (
   const parsedFile1 = parseJSONFileIntoJSObject(filepath1);
   const parsedFile2 = parseJSONFileIntoJSObject(filepath2);
 
-  const keys1 = Object.keys(parsedFile1);
-  const keys2 = Object.keys(parsedFile2);
-  const unitKeys = [...keys1, ...keys2];
-
-  const sortedUniqueKeys = [...new Set(unitKeys)].sort();
-  const space = replacer.repeat(spacesCount);
-  const spaceForEqualCase = replacer.repeat(spacesCount * 4);
-  const diff = sortedUniqueKeys.reduce((acc, key) => {
-    // check if values accociated with the keys are equal
-    if (parsedFile1[key] === parsedFile2[key]) {
-      acc.push(`${spaceForEqualCase}${key}: ${parsedFile1[key]}`);
-    } else if (
-      parsedFile1[key] !== undefined
-      && parsedFile2[key] === undefined
-    ) {
-      acc.push(`${space} - ${key}: ${parsedFile1[key]}`);
-    } else if (
-      parsedFile1[key] === undefined
-      && parsedFile2[key] !== undefined
-    ) {
-      acc.push(`${space} + ${key}: ${parsedFile2[key]}`);
-    } else {
-      acc.push(`${space} - ${key}: ${parsedFile1[key]}`);
-      acc.push(`${space} + ${key}: ${parsedFile2[key]}`);
-    }
-    return acc;
-  }, []);
+  const diff = generateJSONDiff(
+    parsedFile1,
+    parsedFile2,
+    replacer,
+    spacesCount,
+  );
   return `{\n${diff.join('\n')}\n}`;
 };
