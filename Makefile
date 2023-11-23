@@ -1,7 +1,7 @@
 # Makefile
 
-# install: install-deps
-# 	npx simple-git-hooks
+install: install-deps
+	npx simple-git-hooks
 
 install-deps:
 	npm ci
