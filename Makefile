@@ -1,7 +1,7 @@
 # Makefile
 
-install: install-deps
-	npx simple-git-hooks
+# install: install-deps
+# 	npx simple-git-hooks
 
 install-deps:
 	npm ci
@@ -21,6 +21,6 @@ test:
 test-coverage:
 	npm test -- --coverage --coverageProvider=v8
 
-.PHONY: test
+.PHONY:	test
 
 
