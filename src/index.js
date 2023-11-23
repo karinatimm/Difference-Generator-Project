@@ -8,7 +8,7 @@ export const getAbsolutePathToFile = (filepath) => path.resolve(process.cwd(), f
 // read the content of the file at the end of this absolute path:
 export const readAndGetContentOfFile = (filepath) => {
   const absolutePathToFile = getAbsolutePathToFile(filepath);
-  return fs.readFileSync(absolutePathToFile);
+  return fs.readFileSync(absolutePathToFile, 'utf-8');
 };
 
 // path.extname method returns the extension (including the dot)
@@ -18,8 +18,8 @@ export const compareFiles = (filepath1, filepath2, replacer, spacesCount) => {
   const content1 = readAndGetContentOfFile(filepath1);
   const content2 = readAndGetContentOfFile(filepath2);
 
-  const parsedFile1 = parseFileContent(content1);
-  const parsedFile2 = parseFileContent(content2);
+  const parsedFile1 = parseFileContent(content1, getExtension(filepath1));
+  const parsedFile2 = parseFileContent(content2, getExtension(filepath2));
 
   const keys1 = Object.keys(parsedFile1);
   const keys2 = Object.keys(parsedFile2);
