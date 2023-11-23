@@ -1,6 +1,9 @@
 # Makefile
 
-install:
+install: install-deps
+	npx simple-git-hooks
+
+install-deps:
 	npm ci
 
 gendiff:
@@ -14,4 +17,10 @@ lint:
 
 test:
 	npx jest
+
+test-coverage:
+	npm test -- --coverage --coverageProvider=v8
+
+.PHONY: test
+
 
