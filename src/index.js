@@ -1,10 +1,9 @@
-import fs from "fs";
-import path from "path";
-import { parseFileContent } from "./parsers.js";
+import fs from 'fs';
+import path from 'path';
+import parseFileContent from './parsers.js';
 
 // convert filepath into an absolute path based on the current working directory:
-export const getAbsolutePathToFile = (filepath) =>
-  path.resolve(process.cwd(), filepath);
+export const getAbsolutePathToFile = (filepath) => path.resolve(process.cwd(), filepath);
 
 // read the content of the file at the end of this absolute path:
 export const readAndGetContentOfFile = (filepath) => {
@@ -50,9 +49,9 @@ export const compareFiles = (filepath1, filepath2, replacer, spacesCount) => {
 export const generateDiff = (
   filepath1,
   filepath2,
-  replacer = " ",
-  spacesCount = 1
+  replacer = ' ',
+  spacesCount = 1,
 ) => {
   const diff = compareFiles(filepath1, filepath2, replacer, spacesCount);
-  return `{\n${diff.join("\n")}\n}`;
+  return `{\n${diff.join('\n')}\n}`;
 };
