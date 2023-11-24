@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { program } from 'commander';
-import { generateDiff } from '../src/index.js';
+import { iter } from '../src/index.js';
 
 program
   .description('Compares two configuration files and shows a difference.')
@@ -8,7 +8,7 @@ program
   .option('-f, --format <type>', 'output format')
   .option('-V, --version', 'output the version number')
   .action((filepath1, filepath2) => {
-    const diff = generateDiff(filepath1, filepath2);
+    const diff = iter(filepath1, filepath2);
     console.log(diff);
   });
 

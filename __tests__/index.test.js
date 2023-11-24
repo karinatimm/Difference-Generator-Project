@@ -25,13 +25,13 @@ describe('JSON and YAML Files Comparison', () => {
 
   test('compareTwoJSONFiles', () => {
     const result = generateDiff(file1JSONPath, file2JSONPath);
-    const expected = readContentOfFixture('result_of_compare.txt').trim();
+    const expected = readContentOfFixture('stylish_result_of_diff.txt').trim();
     expect(result.trim()).toEqual(expected);
   });
 
   test('compareTwoYAMLFiles', () => {
     const result = generateDiff(file1YMLPath, file2JYAMLPath);
-    const expected = readContentOfFixture('result_of_compare.txt').trim();
+    const expected = readContentOfFixture('stylish_result_of_diff.txt').trim();
     expect(result.trim()).toEqual(expected);
   });
 });
