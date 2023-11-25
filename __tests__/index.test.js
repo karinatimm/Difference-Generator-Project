@@ -3,6 +3,8 @@ import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import { readFileSync } from 'fs';
 import { generateDiff } from '../src/index.js';
+import stylish from '../src/formatters/stylish.js';
+import parseFileContent from '../src/parsers.js';
 
 // convert this file URL to a file path compatible with Node.js functions
 // __filename is the absolute path to the current file:
@@ -33,5 +35,26 @@ describe('JSON and YAML Files Comparison', () => {
     const result = generateDiff(file1YMLPath, file2JYAMLPath);
     const expected = readContentOfFixture('stylish_result_of_diff.txt').trim();
     expect(result.trim()).toEqual(expected);
+  });
+});
+
+describe('Throwing Error in stylish and parsers functions', () => {
+  test('unsupported type in keys in stylish function should throw an error', () => {
+    const diffTreeOfFiles = [
+      { key: 'key1', type: 'unsupported', value: 'value1' },
+    ];
+
+    expect(() => stylish(diffTreeOfFiles)).toThrow(
+      'Error: "unsupported" - this type doesn\'t exist in this file',
+    );
+  });
+
+  test('unsupported extension in parseFileContent function should throw an error', () => {
+    const contentOfFile = '...';
+    const extension = 'txt';
+
+    expect(() => parseFileContent(contentOfFile, extension)).toThrow(
+      'Error: "txt" - this is an invalid extension',
+    );
   });
 });
