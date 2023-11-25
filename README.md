@@ -21,3 +21,7 @@
 ### Gendiff-demo asciinema with YAML-formatted files:
 
 [![Gendiff Demo](https://asciinema.org/a/nNq5N7FPEQF5OLdgcupQGOc8B.svg)](https://asciinema.org/a/nNq5N7FPEQF5OLdgcupQGOc8B)
+
+### Gendiff-demo asciinema of recursive comparison with JSON/YAML-formatted files :
+
+[![Gendiff Demo](https://asciinema.org/a/T7A5kmQyZrJJ54UEyW6QEJBpa.svg)](https://asciinema.org/a/T7A5kmQyZrJJ54UEyW6QEJBpa)
