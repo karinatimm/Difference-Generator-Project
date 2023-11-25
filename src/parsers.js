@@ -9,7 +9,7 @@ const parseFileContent = (contentOfFile, extension) => {
     case 'yaml':
       return yaml.load(contentOfFile);
     default:
-      throw new Error(`Invalid extension: ${extension}`);
+      throw new Error(`Error: "${extension}" - this is an invalid extension`);
   }
 };
 
