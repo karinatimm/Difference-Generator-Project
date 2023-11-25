@@ -1,25 +1,23 @@
-import fs from "fs";
-import path from "path";
-import _ from "lodash";
-import parseFileContent from "./parsers.js";
-import stylish from "./formatters/stylish.js";
-import buildDiffTree from "./buildDiffTree.js";
+import fs from 'fs';
+import path from 'path';
+import parseFileContent from './parsers.js';
+import stylish from './formatters/stylish.js';
+import buildDiffTree from './buildDiffTree.js';
 
 // convert filepath into an absolute path based on the current working directory:
-export const getAbsolutePathToFile = (filepath) =>
-  path.resolve(process.cwd(), filepath);
+export const getAbsolutePathToFile = (filepath) => path.resolve(process.cwd(), filepath);
 
 // read the content of the file at the end of this absolute path:
 export const readAndGetContentOfFile = (filepath) => {
   const absolutePathToFile = getAbsolutePathToFile(filepath);
-  return fs.readFileSync(absolutePathToFile, "utf-8");
+  return fs.readFileSync(absolutePathToFile, 'utf-8');
 };
 
 // path.extname method returns the extension (including the dot)
 export const getExtension = (filepath) => path.extname(filepath).slice(1);
 
 // generate difference
-export const generateDiff = (filepath1, filepath2, format = "stylish") => {
+export const generateDiff = (filepath1, filepath2) => {
   const contentOfFile1 = readAndGetContentOfFile(filepath1);
   const contentOfFile2 = readAndGetContentOfFile(filepath2);
   const extensionOfFile1 = getExtension(filepath1);
