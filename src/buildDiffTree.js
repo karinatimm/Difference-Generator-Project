@@ -97,6 +97,7 @@ const buildDiffTree = (parsedFile1, parsedFile2) => {
 };
 
 export default buildDiffTree;
+
 // buildDiffTree(file1, file2);
 // console.log(buildDiffTree(file1, file2));
 

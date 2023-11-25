@@ -42,9 +42,7 @@ const stylish = (diffTreeOfFiles, nestingLevel = 1) => {
           return `${getIndent(nestingLevel)}  ${key}: {\n${stylish(
             value,
             nestingLevel + 1
-          ).join("\n")}\n${getIndent(
-            nestingLevel
-          )}${indentationForClosingBraces}}`;
+          )}\n${getIndent(nestingLevel)}${indentationForClosingBraces}}`;
         case "addMinusForFile1":
           return `${getIndent(nestingLevel)}- ${key}: ${stringifyValueOfObject(
             value,
