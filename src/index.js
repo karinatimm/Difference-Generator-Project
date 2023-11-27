@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import parseFileContent from './parsers.js';
-import stylish from './formatters/stylish.js';
 import buildDiffTree from './buildDiffTree.js';
+import selectDiffFormatter from './formatters/index.js';
 
 // convert filepath into an absolute path based on the current working directory:
 export const getAbsolutePathToFile = (filepath) => path.resolve(process.cwd(), filepath);
@@ -17,7 +17,11 @@ export const readAndGetContentOfFile = (filepath) => {
 export const getExtension = (filepath) => path.extname(filepath).slice(1);
 
 // generate difference
-export const generateDiff = (filepath1, filepath2) => {
+export const generateDiff = (
+  filepath1,
+  filepath2,
+  formatterName = 'stylish',
+) => {
   const contentOfFile1 = readAndGetContentOfFile(filepath1);
   const contentOfFile2 = readAndGetContentOfFile(filepath2);
   const extensionOfFile1 = getExtension(filepath1);
@@ -27,7 +31,7 @@ export const generateDiff = (filepath1, filepath2) => {
   const parsedFile2 = parseFileContent(contentOfFile2, extensionOfFile2);
 
   const diffTreeOfFiles = buildDiffTree(parsedFile1, parsedFile2);
-  return stylish(diffTreeOfFiles);
+  return selectDiffFormatter(diffTreeOfFiles, formatterName);
 };
 
 // check nested values of keys without indentation
