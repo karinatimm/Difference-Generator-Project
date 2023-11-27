@@ -1,6 +1,5 @@
 import yaml from 'js-yaml';
 
-// convert JSON-formatted and YAML-formatted strings into JS object:
 const parseFileContent = (contentOfFile, extension) => {
   switch (extension) {
     case 'json':
