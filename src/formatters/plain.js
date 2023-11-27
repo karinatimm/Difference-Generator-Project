@@ -9,7 +9,7 @@ const convertValueToString = (value) => {
 };
 
 const makeDiffInPlainFormat = (diffTreeOfFiles, pathOfKeys = '') => {
-  const formattedDiffOfTree = diffTreeOfFiles
+  const arrOfFormattedStrings = diffTreeOfFiles
     .filter((node) => node.type !== 'unchanged')
     .map((node) => {
       // base case
@@ -26,14 +26,14 @@ const makeDiffInPlainFormat = (diffTreeOfFiles, pathOfKeys = '') => {
           )}`;
         case 'addBoth':
           return `Property '${currentPath}' was updated. From ${convertValueToString(
-            node.valueInFile1,
-          )} to ${convertValueToString(node.valueInFile2)}`;
+            node.value1,
+          )} to ${convertValueToString(node.value2)}`;
         default:
           throw new Error(`Error: "${node.type}" - this is an invalid type`);
       }
     });
 
-  return formattedDiffOfTree.join('\n');
+  return arrOfFormattedStrings.join('\n');
 };
 
 export default makeDiffInPlainFormat;
