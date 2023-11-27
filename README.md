@@ -28,4 +28,8 @@
 
 ### Gendiff-demo asciinema showcases recursive comparison using the plain formatter with JSON/YAML-formatted files:
 
-[![Gendiff Demo](https://asciinema.org/a/8cwjYZBOnFdMWsZiLvHVPIDZE.svg)](https://asciinema.org/a/8cwjYZBOnFdMWsZiLvHVPIDZE)
+[![Gendiff Demo](https://asciinema.org/a/h6Z5kUiUTDwn8Q4oV48mu6eF.svg)](https://asciinema.org/a/h6Z5kUiUTDwn8Q4oV48mu6eF)
+
+### Gendiff-demo asciinema showcases recursive comparison using the json formatter with JSON/YAML-formatted files:
+
+[![Gendiff Demo](https://asciinema.org/a/yowIGtFZS6R4EcQOPuFdzaB11.svg)](https://asciinema.org/a/yowIGtFZS6R4EcQOPuFdzaB11)
