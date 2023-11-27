@@ -1,80 +1,80 @@
 import _ from 'lodash';
 
-const getIndentNested = (nestingLevel) => {
+const getSymbolIndent = (depth) => {
   const replacer = ' ';
   const spacesCount = 4;
   const shiftToTheLeft = 2;
-  const indent = replacer.repeat(nestingLevel * spacesCount - shiftToTheLeft);
+  const indent = replacer.repeat(depth * spacesCount - shiftToTheLeft);
   return indent;
 };
 
-const getIndentSimple = (nestingLevel) => {
+const getRegularIndent = (depth) => {
   const replacer = ' ';
   const spacesCount = 4;
-  const indent = replacer.repeat(nestingLevel * spacesCount);
+  const indent = replacer.repeat(depth * spacesCount);
   return indent;
 };
 
-// check if it the value of object is nested or not
-const stringify = (value, nestingLevel) => {
-  // if it's not an object
+const stringify = (value, depth) => {
   if (!_.isPlainObject(value)) {
     return String(value);
   }
-  // check children
-  // array containing formatted strings for each key-value pair within the object
+
   const arrOfFormattedKeyValStrings = Object.entries(value).map(
-    ([keyOfValue, valOfValue]) => `${getIndentSimple(nestingLevel + 1)}${keyOfValue}: ${stringify(
-      valOfValue,
-      nestingLevel + 1,
-    )}\n`,
+    ([key, val]) => `${getRegularIndent(depth + 1)}${key}: ${stringify(val, depth + 1)}\n`,
   );
 
-  return `{\n${arrOfFormattedKeyValStrings.join('')}${getIndentSimple(
-    nestingLevel,
+  return `{\n${arrOfFormattedKeyValStrings.join('')}${getRegularIndent(
+    depth,
   )}}`;
 };
 
-const makeDiffInStylishFormat = (diffTreeOfFiles, nestingLevel = 1) => {
-  const formattedDiffOfTree = diffTreeOfFiles.map(
+const formatAddBothType = (depth, key, value1, value2) => `${getSymbolIndent(depth)}- ${key}: ${stringify(
+  value1,
+  depth,
+)}\n${getSymbolIndent(depth)}+ ${key}: ${stringify(value2, depth)}`;
+
+const makeDiffInStylishFormat = (diffTreeOfFiles, depth = 1) => {
+  const arrOfFormattedStrings = diffTreeOfFiles.map(
     ({
-      key, type, value, valueInFile1, valueInFile2,
+      key, type, value, value1, value2,
     }) => {
       switch (type) {
         case 'nested':
-          return `${getIndentNested(
-            nestingLevel,
-          )}  ${key}: ${makeDiffInStylishFormat(value, nestingLevel + 1)}`;
-        case 'addMinusForFile1':
-          return `${getIndentNested(nestingLevel)}- ${key}: ${stringify(
+          console.log(
+            `${getSymbolIndent(depth)}  ${key}: ${makeDiffInStylishFormat(
+              value,
+              depth + 1,
+            )}`,
+          );
+          return `${getSymbolIndent(depth)}  ${key}: ${makeDiffInStylishFormat(
             value,
-            nestingLevel,
+            depth + 1,
+          )}`;
+        case 'addMinusForFile1':
+          return `${getSymbolIndent(depth)}- ${key}: ${stringify(
+            value,
+            depth,
           )}`;
         case 'addPlusForFile2':
-          return `${getIndentNested(nestingLevel)}+ ${key}: ${stringify(
+          return `${getSymbolIndent(depth)}+ ${key}: ${stringify(
             value,
-            nestingLevel,
+            depth,
           )}`;
         case 'addBoth':
-          return `${getIndentNested(nestingLevel)}- ${key}: ${stringify(
-            valueInFile1,
-            nestingLevel,
-          )}\n${getIndentNested(nestingLevel)}+ ${key}: ${stringify(
-            valueInFile2,
-            nestingLevel,
-          )}`;
+          return formatAddBothType(depth, key, value1, value2);
         case 'unchanged':
-          return `${getIndentNested(nestingLevel)}  ${key}: ${stringify(
+          return `${getSymbolIndent(depth)}  ${key}: ${stringify(
             value,
-            nestingLevel,
+            depth,
           )}`;
         default:
           throw new Error(`Error: "${type}" - this is an invalid type`);
       }
     },
   );
-  return `{\n${formattedDiffOfTree.join('\n')}\n${getIndentSimple(
-    nestingLevel - 1,
+  return `{\n${arrOfFormattedStrings.join('\n')}\n${getRegularIndent(
+    depth - 1,
   )}}`;
 };
 
