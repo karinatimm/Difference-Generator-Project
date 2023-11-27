@@ -50,6 +50,12 @@ describe('JSON and YAML files comparison using stylish, plain formatters', () =>
     const expected = readContentOfFixture('plain_result_of_diff.txt').trim();
     expect(result.trim()).toEqual(expected);
   });
+
+  test('compare two JSON/YAML-formatted files using json formatter', () => {
+    const result = generateDiff(file1JSONPath, file2JYAMLPath, 'json');
+    const expected = readContentOfFixture('json_result_of_diff.txt').trim();
+    expect(result.trim()).toEqual(expected);
+  });
 });
 
 describe('Throwing Error in parseFileContent, makeDiffInStylishFormat, makeDiffInPlainFormat functions', () => {
