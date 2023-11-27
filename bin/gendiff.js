@@ -5,7 +5,7 @@ import { generateDiff } from '../src/index.js';
 program
   .description('Compares two configuration files and shows a difference.')
   .arguments('<filepath1> <filepath2>')
-  .option('-f, --format <type>', 'output format')
+  .option('-f, --format <type>', 'output format', 'stylish')
   .option('-V, --version', 'output the version number')
   .action((filepath1, filepath2) => {
     const diff = generateDiff(filepath1, filepath2, program.opts().format);
