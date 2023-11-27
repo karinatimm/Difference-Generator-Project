@@ -4,19 +4,15 @@ import parseFileContent from './parsers.js';
 import buildDiffTree from './buildDiffTree.js';
 import selectDiffFormatter from './formatters/index.js';
 
-// convert filepath into an absolute path based on the current working directory:
 export const getAbsolutePathToFile = (filepath) => path.resolve(process.cwd(), filepath);
 
-// read the content of the file at the end of this absolute path:
 export const readAndGetContentOfFile = (filepath) => {
   const absolutePathToFile = getAbsolutePathToFile(filepath);
   return fs.readFileSync(absolutePathToFile, 'utf-8');
 };
 
-// path.extname method returns the extension (including the dot)
 export const getExtension = (filepath) => path.extname(filepath).slice(1);
 
-// generate difference
 export const generateDiff = (
   filepath1,
   filepath2,
