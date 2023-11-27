@@ -35,17 +35,16 @@ const stringify = (value, nestingLevel) => {
   )}}`;
 };
 
-const stylish = (diffTreeOfFiles, nestingLevel = 1) => {
+const makeDiffInStylishFormat = (diffTreeOfFiles, nestingLevel = 1) => {
   const formattedDiffOfTree = diffTreeOfFiles.map(
     ({
       key, type, value, valueInFile1, valueInFile2,
     }) => {
       switch (type) {
         case 'nested':
-          return `${getIndentNested(nestingLevel)}  ${key}: ${stylish(
-            value,
-            nestingLevel + 1,
-          )}`;
+          return `${getIndentNested(
+            nestingLevel,
+          )}  ${key}: ${makeDiffInStylishFormat(value, nestingLevel + 1)}`;
         case 'addMinusForFile1':
           return `${getIndentNested(nestingLevel)}- ${key}: ${stringify(
             value,
@@ -70,9 +69,7 @@ const stylish = (diffTreeOfFiles, nestingLevel = 1) => {
             nestingLevel,
           )}`;
         default:
-          throw new Error(
-            `Error: "${type}" - this type doesn't exist in this file`,
-          );
+          throw new Error(`Error: "${type}" - this is an invalid type`);
       }
     },
   );
@@ -81,4 +78,4 @@ const stylish = (diffTreeOfFiles, nestingLevel = 1) => {
   )}}`;
 };
 
-export default stylish;
+export default makeDiffInStylishFormat;
