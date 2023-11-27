@@ -40,6 +40,12 @@ describe('JSON and YAML files comparison using stylish, plain formatters', () =>
     expect(result.trim()).toEqual(expected);
   });
 
+  test('compare two JSON/YAML-formatted files using stylish formatter', () => {
+    const result = generateDiff(file1JSONPath, file2JYAMLPath, 'stylish');
+    const expected = readContentOfFixture('stylish_result_of_diff.txt').trim();
+    expect(result.trim()).toEqual(expected);
+  });
+
   test('compare two JSON/YAML-formatted files using plain formatter', () => {
     const result = generateDiff(file1JSONPath, file2JYAMLPath, 'plain');
     const expected = readContentOfFixture('plain_result_of_diff.txt').trim();
