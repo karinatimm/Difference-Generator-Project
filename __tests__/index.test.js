@@ -8,15 +8,10 @@ import makeDiffInStylishFormat from '../src/formatters/stylish.js';
 import makeDiffInPlainFormat from '../src/formatters/plain.js';
 import selectDiffFormatter from '../src/formatters/index.js';
 
-// convert this file URL to a file path compatible with Node.js functions
-// __filename is the absolute path to the current file:
 const __filename = fileURLToPath(import.meta.url);
-// __dirname is the directory name from the absolute file path stored in __filename
-// representing the directory in which the current file resides (directory of index.test.js)
+
 const __dirname = dirname(__filename);
 
-// абсолютные пути, созданные с помощью, getFixturePath будут указывать на файлы
-// в __fixtures__ директории относительно местоположения index.test.js.
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
 const readContentOfFixture = (filename) => readFileSync(getFixturePath(filename), 'utf-8');
