@@ -41,12 +41,6 @@ const makeDiffInStylishFormat = (diffTreeOfFiles, depth = 1) => {
     }) => {
       switch (type) {
         case 'nested':
-          console.log(
-            `${getSymbolIndent(depth)}  ${key}: ${makeDiffInStylishFormat(
-              value,
-              depth + 1,
-            )}`,
-          );
           return `${getSymbolIndent(depth)}  ${key}: ${makeDiffInStylishFormat(
             value,
             depth + 1,
