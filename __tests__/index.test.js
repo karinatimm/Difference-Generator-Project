@@ -2,7 +2,7 @@ import { test, expect, describe } from '@jest/globals';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import { readFileSync } from 'fs';
-import { generateDiff } from '../src/index.js';
+import generateDiff from '../src/index.js';
 import parseFileContent from '../src/parsers.js';
 import makeDiffInStylishFormat from '../src/formatters/stylish.js';
 import makeDiffInPlainFormat from '../src/formatters/plain.js';
