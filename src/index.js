@@ -13,11 +13,7 @@ export const readAndGetContentOfFile = (filepath) => {
 
 export const getExtension = (filepath) => path.extname(filepath).slice(1);
 
-export const generateDiff = (
-  filepath1,
-  filepath2,
-  formatterName = 'stylish',
-) => {
+const generateDiff = (filepath1, filepath2, formatterName = 'stylish') => {
   const contentOfFile1 = readAndGetContentOfFile(filepath1);
   const contentOfFile2 = readAndGetContentOfFile(filepath2);
   const extensionOfFile1 = getExtension(filepath1);
@@ -29,3 +25,5 @@ export const generateDiff = (
   const diffTreeOfFiles = buildDiffTree(parsedFile1, parsedFile2);
   return selectDiffFormatter(diffTreeOfFiles, formatterName);
 };
+
+export default generateDiff;
