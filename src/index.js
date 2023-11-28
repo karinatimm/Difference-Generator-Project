@@ -4,14 +4,14 @@ import parseFileContent from './parsers.js';
 import buildDiffTree from './buildDiffTree.js';
 import selectDiffFormatter from './formatters/index.js';
 
-export const getAbsolutePathToFile = (filepath) => path.resolve(process.cwd(), filepath);
+const getAbsolutePathToFile = (filepath) => path.resolve(process.cwd(), filepath);
 
-export const readAndGetContentOfFile = (filepath) => {
+const readAndGetContentOfFile = (filepath) => {
   const absolutePathToFile = getAbsolutePathToFile(filepath);
   return fs.readFileSync(absolutePathToFile, 'utf-8');
 };
 
-export const getExtension = (filepath) => path.extname(filepath).slice(1);
+const getExtension = (filepath) => path.extname(filepath).slice(1);
 
 const generateDiff = (filepath1, filepath2, formatterName = 'stylish') => {
   const contentOfFile1 = readAndGetContentOfFile(filepath1);
