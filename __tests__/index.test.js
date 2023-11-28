@@ -16,87 +16,60 @@ const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 
 
 const readContentOfFixture = (filename) => readFileSync(getFixturePath(filename), 'utf-8');
 
-describe('JSON and YAML files comparison using stylish, plain formatters', () => {
-  const file1JSONPath = getFixturePath('file1.json');
-  const file2JSONPath = getFixturePath('file2.json');
-  const file1YMLPath = getFixturePath('file1.yml');
-  const file2JYAMLPath = getFixturePath('file2.yaml');
+describe('JSON and YAML files comparison using stylish, plain, json formatters', () => {
+  const testDataOfFiles = [
+    ['file1.json', 'file2.json', 'stylish_result_of_diff.txt'],
+    ['file1.yml', 'file2.yaml', 'stylish_result_of_diff.txt'],
+    ['file1.json', 'file2.yaml', 'stylish_result_of_diff.txt'],
+    ['file1.json', 'file2.yaml', 'stylish_result_of_diff.txt', 'stylish'],
+    ['file1.json', 'file2.yaml', 'plain_result_of_diff.txt', 'plain'],
+    ['file1.json', 'file2.yaml', 'json_result_of_diff.txt', 'json'],
+  ];
 
-  test('compare two JSON-formatted files using default(stylish) formatter', () => {
-    const result = generateDiff(file1JSONPath, file2JSONPath);
-    const expected = readContentOfFixture('stylish_result_of_diff.txt').trim();
-    expect(result.trim()).toEqual(expected);
-  });
-
-  test('compare two YAML-formatted files using default(stylish) formatter', () => {
-    const result = generateDiff(file1YMLPath, file2JYAMLPath);
-    const expected = readContentOfFixture('stylish_result_of_diff.txt').trim();
-    expect(result.trim()).toEqual(expected);
-  });
-
-  test('compare two JSON/YAML-formatted files using default(stylish) formatter', () => {
-    const result = generateDiff(file1JSONPath, file2JYAMLPath);
-    const expected = readContentOfFixture('stylish_result_of_diff.txt').trim();
-    expect(result.trim()).toEqual(expected);
-  });
-
-  test('compare two JSON/YAML-formatted files using stylish formatter', () => {
-    const result = generateDiff(file1JSONPath, file2JYAMLPath, 'stylish');
-    const expected = readContentOfFixture('stylish_result_of_diff.txt').trim();
-    expect(result.trim()).toEqual(expected);
-  });
-
-  test('compare two JSON/YAML-formatted files using plain formatter', () => {
-    const result = generateDiff(file1JSONPath, file2JYAMLPath, 'plain');
-    const expected = readContentOfFixture('plain_result_of_diff.txt').trim();
-    expect(result.trim()).toEqual(expected);
-  });
-
-  test('compare two JSON/YAML-formatted files using json formatter', () => {
-    const result = generateDiff(file1JSONPath, file2JYAMLPath, 'json');
-    const expected = readContentOfFixture('json_result_of_diff.txt').trim();
-    expect(result.trim()).toEqual(expected);
-  });
+  test.each(testDataOfFiles)(
+    'compare files using formatter',
+    (file1, file2, expectedFile, format = 'stylish') => {
+      const file1Path = getFixturePath(file1);
+      const file2Path = getFixturePath(file2);
+      const result = generateDiff(file1Path, file2Path, format);
+      const expected = readContentOfFixture(expectedFile).trim();
+      expect(result.trim()).toEqual(expected);
+    },
+  );
 });
 
-describe('Throwing Error in parseFileContent, makeDiffInStylishFormat, makeDiffInPlainFormat functions', () => {
-  test('unsupported extension in parseFileContent function should throw an error', () => {
-    const contentOfFile = '...';
-    const extension = 'txt';
-
-    expect(() => parseFileContent(contentOfFile, extension)).toThrow(
+describe('Throwing errors in utility functions', () => {
+  const testDataOfErrors = [
+    [
+      'unsupported extension in parseFileContent function',
+      ['...', 'txt'],
+      parseFileContent,
       'Error: "txt" - this is an invalid extension',
-    );
-  });
-
-  test('unsupported type in keys in makeDiffInStylishFormat function should throw an error', () => {
-    const diffTreeOfFiles = [
-      { key: 'key1', type: 'unsupported', value: 'value1' },
-    ];
-
-    expect(() => makeDiffInStylishFormat(diffTreeOfFiles)).toThrow(
+    ],
+    [
+      'unsupported type in keys in makeDiffInStylishFormat function',
+      [[{ key: 'key1', type: 'unsupported', value: 'value1' }]],
+      makeDiffInStylishFormat,
       'Error: "unsupported" - this is an invalid type',
-    );
-  });
-
-  test('unsupported type in keys in makeDiffInPlainFormat function should throw an error', () => {
-    const diffTreeOfFiles = [
-      { key: 'key1', type: 'unsupported', value: 'value1' },
-    ];
-
-    expect(() => makeDiffInPlainFormat(diffTreeOfFiles)).toThrow(
+    ],
+    [
+      'unsupported type in keys in makeDiffInPlainFormat function',
+      [[{ key: 'key1', type: 'unsupported', value: 'value1' }]],
+      makeDiffInPlainFormat,
       'Error: "unsupported" - this is an invalid type',
-    );
-  });
-
-  test('incorrected formatter name in selectDiffFormatter function should throw an error', () => {
-    const diffTreeOfFiles = [
-      { key: 'key1', type: 'unchanged', value: 'value1' },
-    ];
-    const formatterName = 'ftylish';
-
-    expect(() => selectDiffFormatter(diffTreeOfFiles, formatterName)).toThrow(
+    ],
+    [
+      'incorrect formatter name in selectDiffFormatter function',
+      [[{ key: 'key1', type: 'unchanged', value: 'value1' }], 'ftylish'],
+      selectDiffFormatter,
       'Error: "ftylish" - this is an invalid name of formatter',
-    );
-  });
+    ],
+  ];
+
+  test.each(testDataOfErrors)(
+    '%s should throw an error',
+    (description, inputData, func, errorMessage) => {
+      expect(() => func(...inputData)).toThrow(errorMessage);
+    },
+  );
 });
