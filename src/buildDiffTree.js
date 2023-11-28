@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
-const genObjForAddBothType = (key, currVal1, currVal2) => ({
+const genObjForchangedType = (key, currVal1, currVal2) => ({
   key,
   value1: currVal1,
   value2: currVal2,
-  type: 'addBoth',
+  type: 'changed',
 });
 
 const buildDiffTree = (parsedFile1, parsedFile2) => {
@@ -32,7 +32,7 @@ const buildDiffTree = (parsedFile1, parsedFile2) => {
     if (_.isUndefined(currVal2)) {
       return { key, value: currVal1, type: 'addMinusForFile1' };
     }
-    return genObjForAddBothType(key, currVal1, currVal2);
+    return genObjForchangedType(key, currVal1, currVal2);
   });
 };
 
