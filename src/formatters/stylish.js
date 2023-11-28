@@ -29,10 +29,16 @@ const stringify = (value, depth) => {
   )}}`;
 };
 
+const formatAddMinusType = (depth, key, value) => `${getSymbolIndent(depth)}- ${key}: ${stringify(value, depth)}`;
+
+const formatAddPlusType = (depth, key, value) => `${getSymbolIndent(depth)}+ ${key}: ${stringify(value, depth)}`;
+
 const formatAddBothType = (depth, key, value1, value2) => `${getSymbolIndent(depth)}- ${key}: ${stringify(
   value1,
   depth,
 )}\n${getSymbolIndent(depth)}+ ${key}: ${stringify(value2, depth)}`;
+
+const formatUnchangedType = (depth, key, value) => `${getSymbolIndent(depth)}  ${key}: ${stringify(value, depth)}`;
 
 const makeDiffInStylishFormat = (diffTreeOfFiles, depth = 1) => {
   const arrOfFormattedStrings = diffTreeOfFiles.map(
@@ -46,22 +52,13 @@ const makeDiffInStylishFormat = (diffTreeOfFiles, depth = 1) => {
             depth + 1,
           )}`;
         case 'addMinusForFile1':
-          return `${getSymbolIndent(depth)}- ${key}: ${stringify(
-            value,
-            depth,
-          )}`;
+          return formatAddMinusType(depth, key, value);
         case 'addPlusForFile2':
-          return `${getSymbolIndent(depth)}+ ${key}: ${stringify(
-            value,
-            depth,
-          )}`;
+          return formatAddPlusType(depth, key, value);
         case 'addBoth':
           return formatAddBothType(depth, key, value1, value2);
         case 'unchanged':
-          return `${getSymbolIndent(depth)}  ${key}: ${stringify(
-            value,
-            depth,
-          )}`;
+          return formatUnchangedType(depth, key, value);
         default:
           throw new Error(`Error: "${type}" - this is an invalid type`);
       }
