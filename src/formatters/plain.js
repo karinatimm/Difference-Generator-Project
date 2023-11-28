@@ -24,7 +24,7 @@ const makeDiffInPlainFormat = (diffTreeOfFiles, pathOfKeys = '') => {
           return `Property '${currentPath}' was added with value: ${convertValueToString(
             node.value,
           )}`;
-        case 'addBoth':
+        case 'changed':
           return `Property '${currentPath}' was updated. From ${convertValueToString(
             node.value1,
           )} to ${convertValueToString(node.value2)}`;
