@@ -29,16 +29,23 @@ const stringify = (value, depth) => {
   )}}`;
 };
 
-const formatAddMinusType = (depth, key, value) => `${getSymbolIndent(depth)}- ${key}: ${stringify(value, depth)}`;
-
-const formatAddPlusType = (depth, key, value) => `${getSymbolIndent(depth)}+ ${key}: ${stringify(value, depth)}`;
-
-const formatAddBothType = (depth, key, value1, value2) => `${getSymbolIndent(depth)}- ${key}: ${stringify(
-  value1,
-  depth,
-)}\n${getSymbolIndent(depth)}+ ${key}: ${stringify(value2, depth)}`;
-
-const formatUnchangedType = (depth, key, value) => `${getSymbolIndent(depth)}  ${key}: ${stringify(value, depth)}`;
+const makeStringByType = (depth, key, value, value1, value2, type) => {
+  switch (type) {
+    case 'addMinus':
+      return `${getSymbolIndent(depth)}- ${key}: ${stringify(value, depth)}`;
+    case 'addPlus':
+      return `${getSymbolIndent(depth)}+ ${key}: ${stringify(value, depth)}`;
+    case 'changed':
+      return `${getSymbolIndent(depth)}- ${key}: ${stringify(
+        value1,
+        depth,
+      )}\n${getSymbolIndent(depth)}+ ${key}: ${stringify(value2, depth)}`;
+    case 'unchanged':
+      return `${getSymbolIndent(depth)}  ${key}: ${stringify(value, depth)}`;
+    default:
+      throw new Error(`Error: "${type}" - this is an invalid type`);
+  }
+};
 
 const makeDiffInStylishFormat = (diffTreeOfFiles, depth = 1) => {
   const arrOfFormattedStrings = diffTreeOfFiles.map(
@@ -52,18 +59,19 @@ const makeDiffInStylishFormat = (diffTreeOfFiles, depth = 1) => {
             depth + 1,
           )}`;
         case 'addMinusForFile1':
-          return formatAddMinusType(depth, key, value);
+          return makeStringByType(depth, key, value, null, null, 'addMinus');
         case 'addPlusForFile2':
-          return formatAddPlusType(depth, key, value);
-        case 'addBoth':
-          return formatAddBothType(depth, key, value1, value2);
+          return makeStringByType(depth, key, value, null, null, 'addPlus');
+        case 'changed':
+          return makeStringByType(depth, key, null, value1, value2, 'changed');
         case 'unchanged':
-          return formatUnchangedType(depth, key, value);
+          return makeStringByType(depth, key, value, null, null, 'unchanged');
         default:
           throw new Error(`Error: "${type}" - this is an invalid type`);
       }
     },
   );
+
   return `{\n${arrOfFormattedStrings.join('\n')}\n${getRegularIndent(
     depth - 1,
   )}}`;
