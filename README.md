@@ -4,24 +4,24 @@
 
 The Generating Difference is a command-line utility designed for comparing and highlighting differences between files or structured data sets, primarily for JSON, YML/YAML, or similar formats. This tool provides a well-structured output and allows users to specify the comparison's output format. Users can select any of these formats by using the -f or --format option followed by the desired format (stylish, plain, or json) when running the utility. The default format, when no specific option is provided, is stylish. The output in stylish format uses symbols such as '+' and '-' to indicate additions and deletions, aiding in quickly visualizing modifications between file versions.
 
-- The "+" Symbol (Plus): indicates additions or newly introduced elements/values in the compared file or dataset. This symbol signifies content that exists in the second file but is absent in the first file.
+- The **"+"** Symbol (Plus): indicates additions or newly introduced elements/values in the compared file or dataset. This symbol signifies content that exists in the second file but is absent in the first file.
 
-- The "-" Symbol (Minus): denotes deletions or elements/values that are present in the first file but not in the second one. It signifies content removed or absent in the second file.
+- The **"-"** Symbol (Minus): denotes deletions or elements/values that are present in the first file but not in the second one. It signifies content removed or absent in the second file.
 
 In this utility, three output formats are available for comparison:
 
-- Stylish (Default Format): provides a structured and readable representation of differences between files or datasets.Uses symbols like "+" and "-" to indicate additions and deletions, providing a clear visual representation of changes.
+- **Stylish(Default Format)**: provides a structured and readable representation of differences between files or datasets.Uses symbols like "+" and "-" to indicate additions and deletions, providing a clear visual representation of changes.
 
-- Plain Format: displays differences in a straightforward, concise manner. Presents a list of modifications without any structural formatting or additional symbols.
+- **Plain Format**: displays differences in a straightforward, concise manner. Presents a list of modifications without any structural formatting or additional symbols.
 
-- JSON Format: presents differences in a JSON (JavaScript Object Notation) format. Presents changes in a structured and machine-readable manner, suitable for automation or further processing.
+- **JSON Format**: presents differences in a JSON (JavaScript Object Notation) format. Presents changes in a structured and machine-readable manner, suitable for automation or further processing.
 
 ### System requirements:
 
 The Generating Difference project uses JavaScript for its utility logic and relies on npm scripts to execute this utility in the command line. To use this utility, you need to install the following programs:
 
-- Node.js(version 20.3.0 LTS or higher) (https://nodejs.org/)
-- Node Package Manager(npm) (https://www.npmjs.com/)
+- Node.js(version 20.3.0 LTS or higher) **(https://nodejs.org/)**
+- Node Package Manager(npm) **(https://www.npmjs.com/)**
 
 ### Installation and usage instructions:
 
@@ -31,26 +31,26 @@ Follow these steps to install and run The Generating Difference Project:
 
 Check if you Node.js and npm are installed on your computer. If they are not installed, use the links provided in the "System requirements" section above to install them. If they are already installed, check their versions by opening your terminal or command prompt and running the following commands:
 
-node -v
-npm -v
+**node -v**
+**npm -v**
 
 - Clone the The Generating Difference Project repository:
 
 Open the terminal or command prompt, navigate to your desired directory, and clone the repository from GitHub using the provided link:
 
-git clone https://github.com/karinatimm/frontend-project-46.git
+**git clone https://github.com/karinatimm/frontend-project-46.git**
 
 - Move to the project directory on your computer. If desired, rename the directory as required:
 
-cd frontend-project-46.git
+**cd frontend-project-46.git**
 
 - Install project dependencies using npm:
 
-npm install
+**npm ci**
 
 - Execute the following command to compare two files:
 
-  gendiff filepath1 filepath2
+  **gendiff filepath1 filepath2**
 
 Replace filepath1 and filepath2 with the respective paths to the files you want to compare.
 
@@ -61,23 +61,23 @@ Options:
 
 Available Formats:
 
-1. stylish (default): shows differences in a readable, structured format.
-2. plain: displays differences in a plain format.
-3. json: presents differences in JSON format.
+1. **stylish** (default): shows differences in a readable, structured format.
+2. **plain**: displays differences in a plain format.
+3. **json**: presents differences in JSON format.
 
 Examples:
 
 1. To view the differences in plain format:
 
-gendiff -f plain filepath1 filepath2
+**gendiff -f plain filepath1 filepath2**
 
 2. To compare in stylish format (default):
 
-gendiff -f stylish filepath1 filepath2
+**gendiff -f stylish filepath1 filepath2**
 
 3. To generate differences in JSON format:
 
-gendiff -f json filepath1 filepath2
+**gendiff -f json filepath1 filepath2**
 
 You don't need to use 'run' command in oder to run the game just simply write any command above.
 
