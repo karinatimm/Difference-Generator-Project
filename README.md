@@ -1,8 +1,8 @@
-# The Generating Difference Project
+# The Difference Generator Project
 
 ### Progect description:
 
-The Generating Difference is a command-line utility designed for comparing and highlighting differences between files or structured data sets, primarily for JSON, YML/YAML, or similar formats. This tool provides a well-structured output and allows users to specify the comparison's output format. Users can select any of these formats by using the -f or --format option followed by the desired format (stylish, plain, or json) when running the utility. The default format, when no specific option is provided, is stylish. The output in stylish format uses symbols such as '+' and '-' to indicate additions and deletions, aiding in quickly visualizing modifications between file versions.
+The Difference Generator is a command-line utility designed for comparing and highlighting differences between files or structured data sets, primarily for JSON, YML/YAML, or similar formats. This tool provides a well-structured output and allows users to specify the comparison's output format. Users can select any of these formats by using the -f or --format option followed by the desired format (stylish, plain, or json) when running the utility. The default format, when no specific option is provided, is stylish. The output in stylish format uses symbols such as '+' and '-' to indicate additions and deletions, aiding in quickly visualizing modifications between file versions.
 
 - The **"+"** Symbol (Plus): indicates additions or newly introduced elements/values in the compared file or dataset. This symbol signifies content that exists in the second file but is absent in the first file.
 
@@ -18,14 +18,14 @@ In this utility, three output formats are available for comparison:
 
 ### System requirements:
 
-The Generating Difference project uses JavaScript for its utility logic and relies on npm scripts to execute this utility in the command line. To use this utility, you need to install the following programs:
+The Difference Generator project uses JavaScript for its utility logic and relies on npm scripts to execute this utility in the command line. To use this utility, you need to install the following programs:
 
 - Node.js(version 20.3.0 LTS or higher) **(https://nodejs.org/)**
 - Node Package Manager(npm) **(https://www.npmjs.com/)**
 
 ### Installation and usage instructions:
 
-Follow these steps to install and run The Generating Difference Project:
+Follow these steps to install and run The Difference Generator Project:
 
 - Check if Node.js and npm are installed:
 
@@ -34,15 +34,15 @@ Check if you Node.js and npm are installed on your computer. If they are not ins
 **node -v**
 **npm -v**
 
-- Clone the The Generating Difference Project repository:
+- Clone the Difference-Generator-Project repository:
 
 Open the terminal or command prompt, navigate to your desired directory, and clone the repository from GitHub using the provided link:
 
-**git clone https://github.com/karinatimm/frontend-project-46.git**
+**git clone https://github.com/karinatimm/Difference-Generator-Project.git**
 
 - Move to the project directory on your computer. If desired, rename the directory as required:
 
-**cd frontend-project-46.git**
+**cd Difference-Generator-Project**
 
 - Install project dependencies using npm:
 
@@ -83,19 +83,19 @@ You don't need to use 'run' command in oder to run the game just simply write an
 
 ### Hexlet tests and linter status:
 
-[![Actions Status](https://github.com/karinatimm/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/karinatimm/frontend-project-46/actions)
+[![Actions Status](https://github.com/karinatimm/Difference-Generator-Project/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/karinatimm/Difference-Generator-Project/actions)
 
 ### CI badge in order to display the project's Node CI status
 
-[![Node CI](https://github.com/karinatimm/frontend-project-46/actions/workflows/nodejs.yml/badge.svg)](https://github.com/karinatimm/frontend-project-46/actions/workflows/nodejs.yml)
+[![Node CI](https://github.com/karinatimm/Difference-Generator-Project/actions/workflows/nodejs.yml/badge.svg)](https://github.com/karinatimm/Difference-Generator-Project/actions/workflows/nodejs.yml)
 
 ### CodeClimate badge in order to display this project's quality:
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/bbd8041d000f45e24385/maintainability)](https://codeclimate.com/github/karinatimm/frontend-project-46/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/bbd8041d000f45e24385/maintainability)](https://codeclimate.com/github/karinatimm/Difference-Generator-Project/maintainability)
 
 ### CodeClimate badge in order to generate test coverage
 
-[![Test Coverage](https://api.codeclimate.com/v1/badges/bbd8041d000f45e24385/test_coverage)](https://codeclimate.com/github/karinatimm/frontend-project-46/test_coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/bbd8041d000f45e24385/test_coverage)](https://codeclimate.com/github/karinatimm/Difference-Generator-Project/test_coverage)
 
 ### Gendiff-demo asciinema showcases a comparison JSON-formatted files that are not nested:
 
